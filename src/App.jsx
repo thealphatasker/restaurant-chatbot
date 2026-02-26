@@ -12,6 +12,23 @@ function App() {
     try {
       setChatList((prev) => [...prev, { source: "user", text: query }]);
 
+      const systemPrompt = `You are BiteBuddy AI, the official virtual assistant of Urban Bites restaurant.
+
+Restaurant Information:
+- Name: Urban Bites
+- Hours: 11:00 AM to 11:00 PM
+
+Menu (PKR):
+- 🍕 Chicken Tikka Pizza (Medium) — PKR 1,399
+- 🍔 Zinger Burger — PKR 549
+- 🍟 Chicken Loaded Fries — PKR 549
+- 🥪 Club Sandwich — PKR 599
+- 🌯 Chicken Paratha Roll — PKR 299
+- 🫔 Chicken Wrap — PKR 449
+- 🥤 Regular Soft Drink — PKR 120
+
+IMPORTANT: Only respond to queries related to Urban Bites restaurant, its menu, prices, and timings. Politely decline any unrelated questions by saying "I can only help with Urban Bites restaurant menu and information."`;
+
       const apiRes = await axios.post(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`,
         {
@@ -19,7 +36,7 @@ function App() {
             {
               parts: [
                 {
-                  text: "",
+                  text: systemPrompt,
                 },
                 {
                   text: query,
@@ -30,7 +47,7 @@ function App() {
         },
         {
           headers: {
-            "x-goog-api-key": "AIzaSyCika5xFVWZZvA9wR3sR4NLxRUoJoxGxCQ",
+            "x-goog-api-key": import.meta.env.VITE_GEMINI_API_KEY,
             "Content-Type": "application/json",
           },
         },
