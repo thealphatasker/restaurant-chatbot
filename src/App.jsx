@@ -107,7 +107,7 @@ IMPORTANT: Only respond to queries related to Urban Bites restaurant, its menu, 
         </div>
       </div>
 
-  
+   
       <div className="input-container">
         <form onSubmit={handleQuerySubmit} className="max-w-4xl mx-auto">
           <div className="flex gap-3">
