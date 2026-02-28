@@ -104,7 +104,17 @@ IMPORTANT: Only respond to queries related to Urban Bites restaurant, its menu, 
               </SignedOut>
 
               <SignedIn>
-                <UserButton afterSignOutUrl="/" />
+                <UserButton
+                  afterSignOutUrl="/"
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: {
+                        width: "40px",
+                        height: "40px",
+                      },
+                    },
+                  }}
+                />
               </SignedIn>
             </div>
           </div>
