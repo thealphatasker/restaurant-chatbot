@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 import "./App.css";
 import axios from "axios";
 
@@ -73,61 +74,100 @@ IMPORTANT: Only respond to queries related to Urban Bites restaurant, its menu, 
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-gray-900">
-      {/* Header */}
-      <div className="header-container">
-        <div className="flex items-center justify-center gap-3">
-          <span className="text-5xl animate-bounce">🤖</span>
-          <div className="text-center">
-            <h1 className="text-white">BiteBuddy AI</h1>
-            <p className="text-purple-100">Urban Bites Restaurant Assistant</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Chat Area */}
-      <div className="chat-area">
-        <div className="space-y-3">
-          {chatList.map((ms, index) => (
-            <div
-              key={index}
-              className={`flex ${
-                ms.source === "user" ? "justify-end" : "justify-start"
-              } px-6 py-1`}
-            >
-              <div
-                className={`message-bubble ${
-                  ms.source === "user" ? "user-message" : "ai-message"
-                }`}
-              >
-                <p className="whitespace-pre-wrap">{ms.text}</p>
+    <div className="app-root">
+      <div className="page-wrapper">
+        {/* Header */}
+        <div className="header-container">
+          <div className="flex items-center justify-between gap-3 px-6">
+            <div className="flex items-center gap-3">
+              <span className="text-5xl animate-bounce">🤖</span>
+              <div className="text-center md:text-left">
+                <h1 className="text-white">BiteBuddy AI</h1>
+                <p className="text-purple-100">
+                  Urban Bites Restaurant Assistant
+                </p>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
 
-   
-      <div className="input-container">
-        <form onSubmit={handleQuerySubmit} className="max-w-4xl mx-auto">
-          <div className="flex gap-3">
-            <input
-              id="query"
-              type="text"
-              className="input-field flex-1 rounded-full"
-              placeholder="Ask about our menu..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button
-              type="submit"
-              className="send-button rounded-full"
-              disabled={!query.trim()}
-            >
-              Send
-            </button>
+            <div className="flex items-center gap-2">
+              <SignedOut>
+                <SignUpButton mode="modal">
+                  <button className="send-button rounded-full px-4 py-2 text-sm">
+                    Sign up
+                  </button>
+                </SignUpButton>
+                <SignInButton mode="modal">
+                  <button className="send-button rounded-full px-4 py-2 text-sm">
+                    Sign in
+                  </button>
+                </SignInButton>
+              </SignedOut>
+
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
+            </div>
           </div>
-        </form>
+        </div>
+
+        <SignedIn>
+          {/* Chat Area */}
+          <div className="chat-area">
+            <div className="space-y-3">
+              {chatList.map((ms, index) => (
+                <div
+                  key={index}
+                  className={`flex ${
+                    ms.source === "user" ? "justify-end" : "justify-start"
+                  } px-6 py-1`}
+                >
+                  <div
+                    className={`message-bubble ${
+                      ms.source === "user" ? "user-message" : "ai-message"
+                    }`}
+                  >
+                    <p className="whitespace-pre-wrap">{ms.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Input */}
+          <div className="input-container">
+            <form onSubmit={handleQuerySubmit} className="max-w-4xl mx-auto">
+              <div className="flex gap-3">
+                <input
+                  id="query"
+                  type="text"
+                  className="input-field flex-1 rounded-full"
+                  placeholder="Ask about our menu..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  className="send-button rounded-full"
+                  disabled={!query.trim()}
+                >
+                  Send
+                </button>
+              </div>
+            </form>
+          </div>
+        </SignedIn>
+
+        <SignedOut>
+          <div className="chat-area flex items-center justify-center">
+            <div className="message-bubble ai-message text-center max-w-xl mx-auto">
+              <p className="whitespace-pre-wrap">
+                Please{" "}
+                <span className="font-semibold">sign in or sign up</span> to use
+                BiteBuddy AI and chat about Urban Bites menu and information.
+              </p>
+            </div>
+          </div>
+        </SignedOut>
       </div>
     </div>
   );
