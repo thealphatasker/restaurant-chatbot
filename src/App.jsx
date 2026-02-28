@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/clerk-react";
 import "./App.css";
 import axios from "axios";
 
@@ -109,8 +115,8 @@ IMPORTANT: Only respond to queries related to Urban Bites restaurant, its menu, 
                   appearance={{
                     elements: {
                       userButtonAvatarBox: {
-                        width: "40px",
-                        height: "40px",
+                        width: "45px",
+                        height: "45px",
                       },
                     },
                   }}
@@ -171,9 +177,9 @@ IMPORTANT: Only respond to queries related to Urban Bites restaurant, its menu, 
           <div className="chat-area flex items-center justify-center">
             <div className="message-bubble ai-message text-center max-w-xl mx-auto">
               <p className="whitespace-pre-wrap">
-                Please{" "}
-                <span className="font-semibold">sign in or sign up</span> to use
-                BiteBuddy AI and chat about Urban Bites menu and information.
+                Please <span className="font-semibold">sign in or sign up</span>{" "}
+                to use BiteBuddy AI and chat about Urban Bites menu and
+                information.
               </p>
             </div>
           </div>
